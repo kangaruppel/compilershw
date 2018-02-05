@@ -16,14 +16,74 @@ using namespace std;
 void algebraic_identities(Function& F)
 {
   for (BasicBlock& BB : F) {
+    vector<Instruction*> to_delete;
     for (Instruction& inst : BB) {
       //check for 0 + or * other var
       //or 1 * other var
+      
       if (inst.isBinaryOp()) {
-	//IN Progress
-      }
+	if(ConstantInt* ci = dyn_cast<ConstantInt>(inst.getOperand(0))) {
+	  if (ci->isZero()) {
+	    if(inst.getOpcode()==Instruction::Add) {
+	      //replace result with the other operand
+	      inst.replaceAllUsesWith(inst.getOperand(1));
+	      to_delete.push_back(&inst);
+	    } else if((inst.getOpcode()==Instruction::Mul)||(inst.getOpcode()==Instruction::SDiv)) {
+	      //these are just zero, so replace with this operand
+	      inst.replaceAllUsesWith(inst.getOperand(0));
+	      to_delete.push_back(&inst);
+	    }
+	  }//end if zero
+	  if(ci->isOne()&&(inst.getOpcode()==Instruction::Mul)) {
+	    inst.replaceAllUsesWith(inst.getOperand(1));
+	    to_delete.push_back(&inst);
+	  }
+	}//end op0
+	//check op1
+	else if(ConstantInt* ci = dyn_cast<ConstantInt>(inst.getOperand(1))) {
+	  if (ci->isZero()) {
+	    if(inst.getOpcode()==Instruction::Add) {
+	      //replace result with the other operand
+	      inst.replaceAllUsesWith(inst.getOperand(0));
+	      to_delete.push_back(&inst);
+	    } else if(inst.getOpcode()==Instruction::Mul) {
+	      //this is just zero, so replace with this operand
+	      inst.replaceAllUsesWith(inst.getOperand(1));
+	      to_delete.push_back(&inst);
+	    }
+	  }//end if zero
+	  if(ci->isOne()&&((inst.getOpcode()==Instruction::Mul)||(inst.getOpcode()==Instruction::SDiv))) {
+	    inst.replaceAllUsesWith(inst.getOperand(0));
+	    to_delete.push_back(&inst);
+	  }
+	}//end op1
+	//some more identities if they equal eachother
+	if (inst.getOperand(0)==inst.getOperand(1)) {
+	  ConstantInt* ci;
+	  switch (inst.getOpcode()) {
+	  case Instruction::SDiv:
+	    //replace with Constint 1
+	    ci = ConstantInt::get(F.getParent()->getContext(), APInt(32,1,true));
+	    inst.replaceAllUsesWith(ci);
+	    to_delete.push_back(&inst);
+	    break;
+	  case Instruction::Sub:
+	    //replace with constint 0
+	    ci = ConstantInt::get(F.getParent()->getContext(), APInt(32,0,true));
+	    inst.replaceAllUsesWith(ci);
+	    to_delete.push_back(&inst);
+	    break;
+	  } //end switch
+	}
+      }//end binop check
+    }//end inst iter
+    for (Instruction* inst : to_delete) {
+      outs() << "erasing " << *inst <<"\n";
+      inst->eraseFromParent();
     }
-  }
+  }//end bb iter
+  //delete the redundant insts
+  
 }
 
 namespace {
@@ -130,6 +190,7 @@ namespace {
 	  }
       }//end BB iterator
       
+      algebraic_identities(F);
       //TODO: Identities
       //TODO: Strength reduction
       return true;
