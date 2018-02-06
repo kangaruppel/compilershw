@@ -184,15 +184,13 @@ namespace {
 
    
     bool runOnFunction(Function &F) override {
-      power_down(F);
-
-      vector<Instruction*> to_delete;
-      map<Value*, int> is_const;
-
       for (BasicBlock& BB : F) {
 	//this is a bb level opt
 	//vector<Value*> consts;
 	//constant folding run
+	vector<Instruction*> to_delete;
+	map<Value*, int> is_const;
+      
 	for (Instruction& inst : BB) {
 	  if (StoreInst* si = dyn_cast<StoreInst>(&inst)) {
 	    if(ConstantInt* ci = dyn_cast<ConstantInt>(si->getValueOperand())) {
