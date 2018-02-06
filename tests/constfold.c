@@ -12,6 +12,9 @@ int compute ()
   //scanf("%d", &d);
   e = 4 * d;
   d = 7 * d;
+  if(e > 10) {
+    d = 4;
+  }
   result += a;
   result += b;
   result *= c;

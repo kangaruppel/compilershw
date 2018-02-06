@@ -24,9 +24,26 @@ void power_down(Function& F) {
     for (auto &I : B) {
       //if (I.isBinaryOp()) {
       if(auto *op = dyn_cast<BinaryOperator>(&I)) {
+        // structure of opcode replacement code is borrowed from the mutate
+        // branch of Adrian Sampson's llvm tutorial:
+        // https://github.com/sampsyo/llvm-pass-skeleton
         IRBuilder<> builder(op);
         if (I.getOpcode() == Instruction::Mul) {
             outs() << "Found mul\n";
+          if(ConstantInt* ci = dyn_cast<ConstantInt>(I.getOperand(1))) {
+            APInt temp = ci->getValue();
+            if(temp.isPowerOf2()) {
+              outs() << temp << "\t" << log2(temp.roundToDouble()) << "\n";
+              Value *rhs = I.getOperand(0);
+              Value *shl = builder.CreateShl(rhs, log2(temp.roundToDouble()));
+              outs() << "Here\n";
+              for (auto &U : op->uses()) {
+                User *user = U.getUser();  // A User is anything with operands.
+                user->setOperand(U.getOperandNo(), shl);
+              }
+              outs() << "Here2\n";
+            }
+          }
           if(ConstantInt* ci = dyn_cast<ConstantInt>(I.getOperand(0))) {
             APInt temp = ci->getValue();
             if(temp.isPowerOf2()) {
@@ -42,6 +59,38 @@ void power_down(Function& F) {
             }
           }
         }
+        if (I.getOpcode() == Instruction::SDiv) {
+            outs() << "Found mul\n";
+          if(ConstantInt* ci = dyn_cast<ConstantInt>(I.getOperand(1))) {
+            APInt temp = ci->getValue();
+            if(temp.isPowerOf2()) {
+              outs() << temp << "\t" << log2(temp.roundToDouble()) << "\n";
+              Value *rhs = I.getOperand(0);
+              Value *shl = builder.CreateShl(rhs, log2(temp.roundToDouble()));
+              outs() << "Here\n";
+              for (auto &U : op->uses()) {
+                User *user = U.getUser();  // A User is anything with operands.
+                user->setOperand(U.getOperandNo(), shl);
+              }
+              outs() << "Here2\n";
+            }
+          }
+          if(ConstantInt* ci = dyn_cast<ConstantInt>(I.getOperand(0))) {
+            APInt temp = ci->getValue();
+            if(temp.isPowerOf2()) {
+              outs() << temp << "\t" << log2(temp.roundToDouble()) << "\n";
+              Value *rhs = I.getOperand(1);
+              Value *shl = builder.CreateShl(rhs, log2(temp.roundToDouble()));
+              outs() << "Here\n";
+              for (auto &U : op->uses()) {
+                User *user = U.getUser();  // A User is anything with operands.
+                user->setOperand(U.getOperandNo(), shl);
+              }
+              outs() << "Here2\n";
+            }
+          }
+        }
+      }
       }
     }
   }
@@ -135,8 +184,8 @@ namespace {
 
    
     bool runOnFunction(Function &F) override {
-      power_down(F); 
-   
+      power_down(F);
+
       vector<Instruction*> to_delete;
       map<Value*, int> is_const;
 
@@ -225,10 +274,10 @@ namespace {
 	  inst->eraseFromParent();
 	  }
       }//end BB iterator
-      
-      
+
+      outs() << "done!\n"; 
       algebraic_identities(F);
-      power_down(F); 
+      //power_down(F); 
       //TODO: Identities
       //TODO: Strength reduction
       return true;
