@@ -6,6 +6,7 @@ int compute (int a, int b)
   result += a * 3;
   result += a * 16;
   result += 8 * a;
+  result -= b / 32;
   result -= b / 2;
   result -= b / 4;
   result -= b / 8;

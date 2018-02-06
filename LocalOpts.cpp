@@ -18,82 +18,71 @@
 using namespace llvm;
 using namespace std;
 
-void power_down(Function& F) {
-  outs() << "In power down!\n\n\n";
+/*
+ * @brief strength reduction @details this function handles the two cases
+ * multiplication and division by integer powers of 2. It converts the mul/div
+ * operations to left and right shifts.
+ */
+void strength_reduction(Function& F) {
+  int mul_reduced = 0;
+  int div_reduced = 0;
   for (auto &B : F) {
     for (auto &I : B) {
-      //if (I.isBinaryOp()) {
       if(auto *op = dyn_cast<BinaryOperator>(&I)) {
         // structure of opcode replacement code is borrowed from the mutate
         // branch of Adrian Sampson's llvm tutorial:
         // https://github.com/sampsyo/llvm-pass-skeleton
         IRBuilder<> builder(op);
         if (I.getOpcode() == Instruction::Mul) {
-            outs() << "Found mul\n";
+            //outs() << "Found mul\n";
           if(ConstantInt* ci = dyn_cast<ConstantInt>(I.getOperand(1))) {
             APInt temp = ci->getValue();
             if(temp.isPowerOf2()) {
-              outs() << temp << "\t" << log2(temp.roundToDouble()) << "\n";
+              //outs() << temp << "\t" << log2(temp.roundToDouble()) << "\n";
               Value *rhs = I.getOperand(0);
               Value *shl = builder.CreateShl(rhs, log2(temp.roundToDouble()));
-              outs() << "Here\n";
+              mul_reduced++;
               for (auto &U : op->uses()) {
                 User *user = U.getUser();  // A User is anything with operands.
                 user->setOperand(U.getOperandNo(), shl);
               }
-              outs() << "Here2\n";
             }
           }
           if(ConstantInt* ci = dyn_cast<ConstantInt>(I.getOperand(0))) {
             APInt temp = ci->getValue();
             if(temp.isPowerOf2()) {
-              outs() << temp << "\t" << log2(temp.roundToDouble()) << "\n";
+              //outs() << temp << "\t" << log2(temp.roundToDouble()) << "\n";
               Value *rhs = I.getOperand(1);
               Value *shl = builder.CreateShl(rhs, log2(temp.roundToDouble()));
-              outs() << "Here\n";
+              mul_reduced++;
               for (auto &U : op->uses()) {
                 User *user = U.getUser();  // A User is anything with operands.
                 user->setOperand(U.getOperandNo(), shl);
               }
-              outs() << "Here2\n";
             }
           }
         }
         if (I.getOpcode() == Instruction::SDiv) {
-            outs() << "Found mul\n";
+            //outs() << "Found mul\n";
           if(ConstantInt* ci = dyn_cast<ConstantInt>(I.getOperand(1))) {
             APInt temp = ci->getValue();
             if(temp.isPowerOf2()) {
-              outs() << temp << "\t" << log2(temp.roundToDouble()) << "\n";
+              //outs() << temp << "\t" << log2(temp.roundToDouble()) << "\n";
               Value *rhs = I.getOperand(0);
-              Value *shl = builder.CreateShl(rhs, log2(temp.roundToDouble()));
-              outs() << "Here\n";
+              Value *shr = builder.CreateAShr(rhs, log2(temp.roundToDouble()));
+              div_reduced++;
               for (auto &U : op->uses()) {
                 User *user = U.getUser();  // A User is anything with operands.
-                user->setOperand(U.getOperandNo(), shl);
+                user->setOperand(U.getOperandNo(), shr);
               }
-              outs() << "Here2\n";
-            }
-          }
-          if(ConstantInt* ci = dyn_cast<ConstantInt>(I.getOperand(0))) {
-            APInt temp = ci->getValue();
-            if(temp.isPowerOf2()) {
-              outs() << temp << "\t" << log2(temp.roundToDouble()) << "\n";
-              Value *rhs = I.getOperand(1);
-              Value *shl = builder.CreateShl(rhs, log2(temp.roundToDouble()));
-              outs() << "Here\n";
-              for (auto &U : op->uses()) {
-                User *user = U.getUser();  // A User is anything with operands.
-                user->setOperand(U.getOperandNo(), shl);
-              }
-              outs() << "Here2\n";
             }
           }
         }
       }
-      }
     }
   }
+  outs() << "Power of 2 multiplications reduced:" << mul_reduced << "\n";
+  outs() << "Power of 2 divisions reduced:" << div_reduced << "\n";
 }
 
 void algebraic_identities(Function& F)
@@ -273,11 +262,8 @@ namespace {
 	  }
       }//end BB iterator
 
-      outs() << "done!\n"; 
       algebraic_identities(F);
-      //power_down(F); 
-      //TODO: Identities
-      //TODO: Strength reduction
+      strength_reduction(F);
       return true;
     }
   };
