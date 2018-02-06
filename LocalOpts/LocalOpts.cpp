@@ -86,7 +86,7 @@ void strength_reduction(Function& F) {
 }
 
 void algebraic_identities(Function& F)
-{
+{ int alg_count = 0;
   for (BasicBlock& BB : F) {
     vector<Instruction*> to_delete;
     for (Instruction& inst : BB) {
@@ -100,15 +100,18 @@ void algebraic_identities(Function& F)
 	      //replace result with the other operand
 	      inst.replaceAllUsesWith(inst.getOperand(1));
 	      to_delete.push_back(&inst);
+        alg_count++;
 	    } else if((inst.getOpcode()==Instruction::Mul)||(inst.getOpcode()==Instruction::SDiv)) {
 	      //these are just zero, so replace with this operand
 	      inst.replaceAllUsesWith(inst.getOperand(0));
 	      to_delete.push_back(&inst);
+        alg_count++;
 	    }
 	  }//end if zero
 	  if(ci->isOne()&&(inst.getOpcode()==Instruction::Mul)) {
 	    inst.replaceAllUsesWith(inst.getOperand(1));
 	    to_delete.push_back(&inst);
+      alg_count++;
 	  }
 	}//end op0
 	//check op1
@@ -118,15 +121,18 @@ void algebraic_identities(Function& F)
 	      //replace result with the other operand
 	      inst.replaceAllUsesWith(inst.getOperand(0));
 	      to_delete.push_back(&inst);
+        alg_count++;
 	    } else if(inst.getOpcode()==Instruction::Mul) {
 	      //this is just zero, so replace with this operand
 	      inst.replaceAllUsesWith(inst.getOperand(1));
 	      to_delete.push_back(&inst);
+        alg_count++;
 	    }
 	  }//end if zero
 	  if(ci->isOne()&&((inst.getOpcode()==Instruction::Mul)||(inst.getOpcode()==Instruction::SDiv))) {
 	    inst.replaceAllUsesWith(inst.getOperand(0));
 	    to_delete.push_back(&inst);
+      alg_count++;
 	  }
 	}//end op1
 	//some more identities if they equal eachother
@@ -138,24 +144,27 @@ void algebraic_identities(Function& F)
 	    ci = ConstantInt::get(F.getParent()->getContext(), APInt(32,1,true));
 	    inst.replaceAllUsesWith(ci);
 	    to_delete.push_back(&inst);
+      alg_count++;
 	    break;
 	  case Instruction::Sub:
 	    //replace with constint 0
 	    ci = ConstantInt::get(F.getParent()->getContext(), APInt(32,0,true));
 	    inst.replaceAllUsesWith(ci);
 	    to_delete.push_back(&inst);
+      alg_count++;
 	    break;
 	  } //end switch
 	}
       }//end binop check
     }//end inst iter
     for (Instruction* inst : to_delete) {
-      outs() << "erasing " << *inst <<"\n";
+      //outs() << "erasing " << *inst <<"\n";
       inst->eraseFromParent();
     }
   }//end bb iter
   //delete the redundant insts
   
+  outs() << "Alegbraic identities reduced:" << alg_count << "\n";
 }
 
 namespace {
@@ -171,6 +180,7 @@ namespace {
     }
     
 
+  int insts_deleted = 0;
    
     bool runOnFunction(Function &F) override {
       for (BasicBlock& BB : F) {
@@ -187,7 +197,7 @@ namespace {
 	      for(User* use : si->getPointerOperand()->users()) {
 		is_const[use] = ci->getSExtValue();
 	      }
-	      outs() << "inserting into map " << *ci<< " at " << *si->getPointerOperand()<<"\n";
+	      //outs() << "inserting into map " << *ci<< " at " << *si->getPointerOperand()<<"\n";
 	    } else if (is_const.find(si->getValueOperand())!=is_const.end()) {
 	      APInt val = APInt(32, is_const[si->getValueOperand()], true);
 	      ConstantInt* ci = ConstantInt::get(F.getParent()->getContext(), val);
@@ -196,7 +206,7 @@ namespace {
 	      
 	      for(User* use : si->getPointerOperand()->users()) {
 		is_const[use] = ci->getSExtValue();
-		outs() << "inserting into map " << *ci<< " at " << *use<<"\n";
+		//outs() << "inserting into map " << *ci<< " at " << *use<<"\n";
 	      }
 	      //si->setValueOperand(ci);
 	      ReplaceInstWithInst(si, store);
@@ -211,7 +221,7 @@ namespace {
 	    //outs() <<"ops: " << *operand1 <<" " << *operand2 <<"\n";
 	    if ((isa<ConstantInt>(operand1)||(is_const.find(operand1)!=is_const.end()))
 		&&(isa<ConstantInt>(operand2)||(is_const.find(operand2)!=is_const.end()))) {
-	      outs() << "found constant binop"<<inst <<"\n";
+	      //outs() << "found constant binop"<<inst <<"\n";
 		int new_val;
 		int op1, op2;
 		if(isa<ConstantInt>(operand1)) {
@@ -223,7 +233,7 @@ namespace {
 		  op2 = cast<ConstantInt>(operand2)->getSExtValue();
 		} else {
 		  op2 = is_const[operand2];
-		} outs() << "using " << op1 <<" and " << op2<<"\n";
+		} //outs() << "using " << op1 <<" and " << op2<<"\n";
 		switch(inst.getOpcode()) {
 		case Instruction::Add :
 		  new_val = op1 + op2;
@@ -244,24 +254,25 @@ namespace {
 		ConstantInt* ci = ConstantInt::get(F.getParent()->getContext(), APInt(32, new_val, true));
 		is_const[cast<Value>(&inst)] = ci->getSExtValue();
 		for(User* use : inst.users()) {
-		  outs() << "inserting into map " << *ci<< " at " << *use<<"\n";
+		  //outs() << "inserting into map " << *ci<< " at " << *use<<"\n";
 		  is_const[use] = ci->getSExtValue();
 		}
 		//StoreInst* si = new StoreInst(cast<Value>(ci), cast<Value>(&inst), &inst);
 		inst.replaceAllUsesWith(ci);
 		to_delete.push_back(&inst);
-		outs() << "pushing delete\n";
+		//outs() << "pushing delete\n";
 		
 	    }//end const if
 	  }//end binop if
 	}//end inst iterator
 	//now we can delete the redundant instructions
 	for (Instruction* inst : to_delete) {
-	  outs() << "erasing " << *inst << "\n";
+	  //outs() << "erasing " << *inst << "\n";
 	  inst->eraseFromParent();
+    insts_deleted++;
 	  }
       }//end BB iterator
-
+      outs() << "Constant instructions replaced:" << insts_deleted << "\n";
       algebraic_identities(F);
       strength_reduction(F);
       return true;

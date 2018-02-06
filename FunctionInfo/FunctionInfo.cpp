@@ -1,5 +1,5 @@
 // 15-745 S18 Assignment 1: FunctionInfo.cpp
-// Group:
+// Group: Milijana Surbatovich (milijans) and Emily Ruppel (eruppel)
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "llvm/Pass.h"
@@ -37,7 +37,7 @@ namespace {
 
       return false;
     }
-
+  // Struct to store counters for all functions
   typedef struct funcData_ {
     int bbs;
     int insts;
@@ -46,7 +46,7 @@ namespace {
     StringRef name;
   } funcData;
 
-  // Print output for each function
+  // Map to function name for simplicity
 	std::map<std::string, funcData> funcCounter;
   virtual bool runOnFunction(Function &F) {
     int bbs, insts, numArgs;
@@ -55,6 +55,7 @@ namespace {
     char temp[5];
     bbs = 0;
     insts = 0;
+    // Initialize counters for new function
     name = F.getName();
     if(funcCounter.find(name) == funcCounter.end()) {
       funcCounter[name].callSites = 0;
@@ -68,10 +69,13 @@ namespace {
     else {
       numArgs = F.arg_size();
     }
+    // Iterate over basic blocks
     for (auto &B : F) {
       bbs++;
+      // Iterate over instructions
       for (auto &I : B) {
         insts++;
+        // Verbose way to figure out if we're dealing with a call instruction...
         strncpy(temp, I.getOpcodeName(), 5);
         if(strcmp(stuff, temp) == 0) {
           if(funcCounter.find(cast<CallInst>(I).getCalledFunction()->getName()) == funcCounter.end()) {
@@ -86,22 +90,24 @@ namespace {
     funcCounter[name].bbs = bbs;
     funcCounter[name].insts = insts;
     funcCounter[name].numArgs = numArgs;
-	  //outs() << name << ",\t" << funcCounter[name].bbs << ",\t" << funcCounter[name].insts << ",\t" << funcCounter[name].numArgs << "\n";
+  return true;
   }
 
+  // Print final results after analyzing all functions
   bool doFinalization(Module &M) override{
-    outs() << "Test!\n";
+    outs() << "Name\t" << "#Args\t" << "#Calls\t" << "#Blocks\t" << "#Insns\n";
     for( std::map<std::string,funcData>::iterator it=funcCounter.begin(); it!=funcCounter.end(); ++it) {
-      outs() << it->first << ",\t" << it->second.bbs << ",\t" << it->second.insts
-             << ",\t" << it->second.callSites << ",\t";
+      outs() << it->first << ",\t";
       if(it->second.numArgs == -1) {
         outs() << "*";
       }
       else {
         outs() << it->second.numArgs;
       }
-      outs() << "\n";
+      outs() << "\t";
+      outs() << it->second.callSites << ",\t" << it->second.bbs << ",\t" << it->second.insts << ",\n";
     }
+    return true;
   }
 };
 }

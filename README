@@ -1,0 +1,20 @@
+Assignment 1, 15-745
+M. Surbatovich and E. Ruppel
+Due: February 5, 2018
+
+FunctionInfo: This directory contains the analysis pass. Run "make" to compile
+the pass.
+
+LocalOpts: This directory contains LocalOpts.cpp which contains all three
+optimization passes. The optimizations are as follows:
+
+1. Algebraic identities: Handles addition by zero, multipliation and division by 1 and
+division and subtraction by an equal number. 
+(ex: a + 0 = a, a * 1 = a, a / 1 = a, a / a = 1, a -a = 0)
+
+2. Constant Folding: folds constants that are in expressions containing
+addition, subtraction, multiplication or division. The optimizaiton also
+propagates the variables that have been defined with constants.
+
+3. Strength reduction: converts divsion and multiplication by integer powers of
+2 to bit shifts.
