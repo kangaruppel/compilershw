@@ -1,4 +1,4 @@
-ll: FunctionInfo.so
+ll: LocalOpts.so
 
 CXXFLAGS = -rdynamic $(shell llvm-config --cxxflags) -g -O0
 

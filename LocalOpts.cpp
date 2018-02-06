@@ -9,9 +9,43 @@
 #include "llvm/IR/Constants.h"
 #include <iostream>
 #include "llvm/Transforms/Utils/BasicBlockUtils.h"
+#include <math.h>
+#include "llvm/IR/IRBuilder.h"
+#include "llvm/Transforms/IPO/PassManagerBuilder.h"
+#include "llvm/IR/LegacyPassManager.h"
+#include "llvm/IR/InstrTypes.h"
 
 using namespace llvm;
 using namespace std;
+
+void power_down(Function& F) {
+  outs() << "In power down!\n\n\n";
+  for (auto &B : F) {
+    for (auto &I : B) {
+      //if (I.isBinaryOp()) {
+      if(auto *op = dyn_cast<BinaryOperator>(&I)) {
+        IRBuilder<> builder(op);
+        if (I.getOpcode() == Instruction::Mul) {
+            outs() << "Found mul\n";
+          if(ConstantInt* ci = dyn_cast<ConstantInt>(I.getOperand(0))) {
+            APInt temp = ci->getValue();
+            if(temp.isPowerOf2()) {
+              outs() << temp << "\t" << log2(temp.roundToDouble()) << "\n";
+              Value *rhs = I.getOperand(1);
+              Value *shl = builder.CreateShl(rhs, log2(temp.roundToDouble()));
+              outs() << "Here\n";
+              for (auto &U : op->uses()) {
+                User *user = U.getUser();  // A User is anything with operands.
+                user->setOperand(U.getOperandNo(), shl);
+              }
+              outs() << "Here2\n";
+            }
+          }
+        }
+      }
+    }
+  }
+}
 
 void algebraic_identities(Function& F)
 {
@@ -97,9 +131,11 @@ namespace {
     void getAnalysisUsage(AnalysisUsage &AU) const override {
       AU.setPreservesAll();
     }
+    
 
    
     bool runOnFunction(Function &F) override {
+      power_down(F); 
    
       vector<Instruction*> to_delete;
       map<Value*, int> is_const;
@@ -190,7 +226,9 @@ namespace {
 	  }
       }//end BB iterator
       
+      
       algebraic_identities(F);
+      power_down(F); 
       //TODO: Identities
       //TODO: Strength reduction
       return true;
