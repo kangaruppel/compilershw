@@ -1,11 +1,72 @@
 \section{System Overview}
 
-The overarching algorithm is fixed-point, iterating through the functions, summarizing new information about the io flow, and iterating through functions again, until there is no new information to be gleaned. 
+The overarching algorithm is fixed-point - iterating through the functions, summarizing new information about the I/O flow, and iterating through functions again, until there is no new information to be gleaned. Psuedocode is presented in Figure \ref{alg:fixedp}
+
+\begin{algorithm}
+\begin{algorithmic}
+\Function{searchFunctions}{$Module M$} 
+	\ForAll{Function func in M} 
+		\State $workinglist \gets pair(func, NULL)$
+	\EndFor
 	
-To start with, we don't know where the io enters the program, so all the functions are put in the stack, with no io parameter--the io call/instruction is found internally, based on annotated information in the source code. Once the IO source is found, we call a function that traverses the local data and control flow chain of the io source. In the chain, there are some instructions of interest--namely, branches, which can lead to the bug of mismatched nv write sets, and instructions that result in io tainted values flowing out of the current function that we're examining. 
+	\While{!workinglist.empty} 
+		\State $currPair \gets workinglist.next$
+		\State $sources \gets \Call{findTainted}{currPair}$ 
+		\State $sinks \gets \Call{summarize}{sources}$
+		\ForAll{taintedPair in sinks} 
+			\State workinglist.add(taintedPair)
+		\EndFor
+	\EndWhile
+\EndFunction
+\\
+\Function{findTainted}{func, ioVal} 
+	\State $tainted \gets \Call{searchAnnotation}{func}$ 
+	\State $visitlist \gets tainted$ 
+	\While{!visitlist.empty}
+		\State $current \gets visitlist.next$
+		\State $result \gets \Call{traverseDependence}{current}$ 
+		\ForAll{Instructions in result} 
+			\If{instruction == BranchInst}
+				\State \Call{check}{instruction, visitlist}
+			\Else 
+				\State Sources.add(instruction) 
+			\EndIf
+			
+		\EndFor
+	\EndWhile
+	\State \Return{Sources}
+\EndFunction
+\\
+\Function{traverseDependence}{tainted} 
+	\ForAll{data dependencies of tainted} 
+		\If{instruction == (BranchInst or Source)}
+			\State result.add(instruction)
+		\EndIf
+		
+	\EndFor
+	
+	\State \Return{result}
+\EndFunction
+\\
+\Function{check}{branch, visitlist}
+\ForAll{conditional target blocks on branch} 
+	\ForAll{Instructions in block} 
+		\If{instruction == store}
+			\State bugReport[branch].add(instruction)
+			\State visitList.add(instruction)
+		\EndIf
+	\EndFor
+\EndFor
+\EndFunction
+\end{algorithmic}
+\caption{Iterative, fixed point taint tracking. While the algorithm is not truly interproceedural, it tracks the data and control dependencies with the local function and summarizes how the taint flows out of the function. The summary information is used to add functions to the working list, until the entire I/O tainted flow has been explored}
+\label{alg:fixedp}
+\end{algorithm}
+	
+To start with, we don't know where the I/O enters the program, so all the functions are put in the stack, with no I/O parameter--the I/O call/instruction is found internally, based on annotated information in the source code. Once the I/O source is found, we call a function that traverses the local data and control flow chain of the I/O source. In the chain, there are some instructions of interest--namely, branches, which can lead to the bug of mismatched nv write sets, and instructions that result in I/O tainted values flowing out of the current function that we're examining. 
 	
 Traversing the data flow primarily uses LLVM's built-in def use chains. From the definition of the tainted variable, we follow the uses in a depth first search, adding on new definitions to the stack.  
-From the traversal function call, we return the list of interesting instructions found. If the instruction was a branch, we examine the non-volatile (i.e.,globals) write sets to see if there is the possibility for the bug. Additionally, the non-volatile variables (used locally and in nested function calls) and local volatile variables written to are control-dependent on the io tainted variable, so we add the globals to the summary information and continue the local traversal with the newly tainted control dependent variables.
+From the traversal function call, we return the list of interesting instructions found. If the instruction was a branch, we examine the non-volatile (i.e.,globals) write sets to see if there is the possibility for the bug. Additionally, the non-volatile variables (used locally and in nested function calls) and local volatile variables written to are control-dependent on the I/O tainted variable, so we add the globals to the summary information and continue the local traversal with the newly tainted control dependent variables.
 	
 For the other types of instructions returned from the traversal, we use the information to add to our list of functions to still be examined to reach fixed point. 
 	
@@ -17,33 +78,33 @@ Values can leave the local function by:
 \item{being stored into a call-by-reference parameter (which may be global itself}
 \end{itemize}	
 	
-If the tainted value was returned from the function F, we add all the callers of F to the stack, with the value where the return was stored as the tainted io value. (When adding new functions to the examination stack based on summary information, we pass in the tainted value as a parameter instead of searching for the annotations, but then search the chain in the same way. )
+If the tainted value was returned from the function F, we add all the callers of F to the stack, with the value where the return was stored as the tainted I/O value. (When adding new functions to the examination stack based on summary information, we pass in the tainted value as a parameter instead of searching for the annotations, but then search the chain in the same way. )
 	
-Likewise if the tainted value was passed into a global, we find the uses of the global, the parent Function of those uses, and add those to the stack, with the global as the tainted value. If the io was used as a function parameter, we find the callee function and the local version of the argument. 
+Likewise if the tainted value was passed into a global, we find the uses of the global, the parent Function of those uses, and add those to the stack, with the global as the tainted value. If the I/O was used as a function parameter, we find the callee function and the local version of the argument. 
 	
-If io was stored into a pass-by-reference parameter, we find all the caller functions and their local value that the argument aliases to. (If the reference para refers to a global, we also add that global to the summary information.)
+If I/O was stored into a pass-by-reference parameter, we find all the caller functions and their local value that the argument aliases to. (If the reference para refers to a global, we also add that global to the summary information.)
 	
-We add all these new function/tainted value pairs to the stack, and continue to iterate. (We do keep track of what pairs we have already examined, to prevent infinite looping). Eventually, there will be no new information being returned from the traversal function, and we have examined all the functions to which the tainted io has spread. 
+We add all these new function/tainted value pairs to the stack, and continue to iterate. (We do keep track of what pairs we have already examined, to prevent infinite looping). Eventually, there will be no new information being returned from the traversal function, and we have examined all the functions to which the tainted I/O has spread. 
 	
 \subsection{NV Write-set algorithm}
 
 To help with handling arbitrary complexity of control flow within the branches off of io, we precompute the may write sets of each function before hand, using a bottom up examination of the call graph. 
 	
-What stores we decide to add the write sets does effect what possible bugs will be reported. For instance, one complexity that must be considered is how to handle stores on branches. Say we have a simple program with two nonvolatile variables, nv0 and nv1 that branches on an io tainted variable. On one side of the io branch we write to nv0 and nv1. On the other side, we write to nv0, but then we branch again. On one side of the branch we write to nv1, but on the other side we don't. Thus, in this example, one execution could have the io branch writing to the same nv set on both sides, and another execution doesn't.
+What stores we decide to add the write sets does effect what possible bugs will be reported. For instance, one complexity that must be considered is how to handle stores on branches. Say we have a simple program with two nonvolatile variables, nv0 and nv1 that branches on an I/O tainted variable. On one side of the I/O branch we write to nv0 and nv1. On the other side, we write to nv0, but then we branch again. On one side of the branch we write to nv1, but on the other side we don't. Thus, in this example, one execution could have the I/O branch writing to the same nv set on both sides, and another execution doesn't.
 	
 There are a few ways to deal with these branches: don't add any stores within the branch basic blocks to the write set, add all the stores to the write set (what we do right now), or make two versions of the write set, adding a different side of the branch to each one. This last option is perhaps most attractive for accuracy, but it is difficult to handle arbitrary complexity, and has a much higher storage overhead.
 	
-Another problem with the first two approaches is that if we adjust the above example a little, we can have an io branch where both sides write to nv0, and on the second branch, one side also writes to nv1. In this case, adding all the stores with the branches detects more bug possibilities, whereas ignoring the branch under reports. So neither of the simpler solutions can be said to definitively under or over report bugs. 
+Another problem with the first two approaches is that if we adjust the above example a little, we can have an I/O branch where both sides write to nv0, and on the second branch, one side also writes to nv1. In this case, adding all the stores with the branches detects more bug possibilities, whereas ignoring the branch under reports. So neither of the simpler solutions can be said to definitively under or over report bugs. 
 	
 \subsection{Filtering Pass}
 //TODO
 
 \subsection{High-level, English explanation of what the tool detects}
 \begin{itemize}
-\item{The final bug is always the disparate nv write sets after a branch off of an io tainted value}
-\item{We track the io through explicit (data) and implicit (control) flow}
-\item{Tainted io can leave a function through function calls, return values, pass by ref, and globals}
-\item{Initial io into the prog has to be annotated (not good or bad, just a thing)}
+\item{The final bug is always the disparate nv write sets after a branch off of an I/O tainted value}
+\item{We track the I/O through explicit (data) and implicit (control) flow}
+\item{Tainted I/O can leave a function through function calls, return values, pass by ref, and globals}
+\item{Initial I/O into the prog has to be annotated (not good or bad, just a thing)}
 \end{itemize}	
 \subsection{Possible limitations of the tool}
 \begin{itemize}
