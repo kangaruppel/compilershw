@@ -1,1 +1,55 @@
 \section{Introduction}
+
+Batteryless, energy harvesting devices are positioned to deliver an exciting new
+class of applications enabled by maintenance free sensing and computing.
+Batteryless devices harvest energy from their environments and store it in a
+small buffer such as a capacitor rather than charging a battery.  The buffered
+energy is used to operate a microprocessor as well as an array of peripherals
+that gather and communicate data. As a result, these devices operate only
+intermittently as energy is available.
+%
+Once all of the energy in the buffer has been used, the device powers down and
+execution is terminated. Multiple systems have been developed to support long
+running computations by continuing the execution across reboots. The
+intermittent runtime systems developed in prior work use careful book-keeping of
+program state to correctly perform the continuations  without custom hardware
+~\cite{chain,dino,mementos,alpaca,mayfly,ratchet}.
+
+When an execution is interrupted by a power failure, intermittent runtime
+systems restore the most recent consistent state from a
+checkpoint~\cite{mementos,ratchet}, or task boundary~\cite{chain,alpaca,dino} and
+re-execute the segment of code that was interrupted.
+%
+All of these systems allow intermittently executed programs to make progress and
+prevents persistent state from being corrupted by re-execution, however, their
+guarantees in terms of sensor input are limited. Specifically, if \emph{control
+flow} decisions are made based on non-idempotent operations, such as reading
+input from a sensor, these systems allow updates from multiple branches to
+persist.
+%
+This is a problem because re-executing the code and taking different branches on
+each execution may result in writes to different variables, leaving the
+previously written memory in an inconsistent state.
+%
+Bugs that can result from the partially written state are difficult for
+programmers to diagnose because they require the programmer to reason about how
+partial execution of different branches of control flow will affect the future
+state of the program.
+%
+Instead, our project uses a compiler pass to identify control flow based on sensor input
+and detect writes to non-volatile data that can leave memory in an inconsistent
+state if repeated reads from the sensor produce different values.
+%
+% Is the following blurb still true?
+
+In particular, our project focuses on refining the pass to
+reduce the number of false positives the compiler generates by running the pass
+on benchmarks used in intermittently powered devices. Initially, we intended to
+use the MiBench suite of benchmarks for embedded devices, but we found that
+MiBench applications primarily benchmark the computation performed by an
+embedded device, not the device's handling of I/O. In the benchmarks we
+investigated, sensor data are often represented as buffer of data that is
+loaded once at the beginning of the application as opposed to pulled in
+repeatedly as in a typical sensing application.
+
+
