@@ -3,13 +3,21 @@
 ...
 
 \subsection{A discussion of non-idempotent behavior in intermittent programs}
-\begin{itemize}
-\item{The program does not have non-idempotent behavior and thus does not have a (non-idempotent) bug.}
-\item{ The program has non-idempotent behavior. This behavior generally takes two forms: write-after-read dependencies and I/O operations, though there are some less common uses, such as pointer-based stack operations [cite Ratchet].  Bugs off of WAR dependencies have been extensively studied in prior work, and several runtime systems exist to fix them [cite Previous Work]. While there could be other bugs stemming from the use of irrevocable I/O operations, this paper specifically explores memory inconsistencies stemming from branches off of non-idempotent input [Discussed earlier in introduction, presumably].} 
-\begin{itemize}
-		\item{Not all I/O branches potentially lead to buggy behavior -- to make memory be in an inconsistent state, non-volatile variables must be written to on at least one side of the branch.}
-		\item{Furthermore, on a power fail and re-execution of the non-idempotent region, such a tainted variable has to be the reaching definition for some use, either in expected program execution or along the back-edge introduced by re-executing. A tainted variable can be sanitized by deterministically writing to it from the reset point to the branch, or after the branch before another use [cite figure].} 
-		\item{Sometimes buggy behavior might only be exposed by re-orderings of instructions during runtime. In such cases where the programmer correctly blocked the tainted variable from having any uses or wrote the exact same non-volatile write set on both sides of the I/O branch, compiler optimizations might order the initializations on the wrong side of the reset point [This would depend on the runtime system] or change the order of the non-volatile writes such that it is possible to write divergent sets on a power fail. [Note: this needs to be written better.]} 
-\end{itemize}
-\end{itemize}		
-In [Figure n], we present a flow chart of the taxonomy of non-idempotent behavior and consequences described above. 
+
+In Figure \ref{fig:tax}, we present a flow chart of the taxonomy of non-idempotent behaviors and their potentially buggy consequences. 
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=1\columnwidth]{taxonomy.pdf}
+\caption{Taxonomy of non-idempotent behavior and consequences}
+\label{fig:tax}
+\end{figure}
+\paragraphb{Question 1: Does the program have non-idempotent behavior?} Idempotent code can be re-executed arbitrarily without any changes to the visible output. [Find a citation??] Most new bugs introduced by computing under intermittent power are due to memory inconsistencies caused by the unexpected re-execution of code regions. If a program does not exhibit non-idempotent behavior, it will not have any of the bugs we are studying.
+
+\paragraphb{Questions 2 and 3: What is the cause of the non-idempotency?} Non-idempotent behavior generally has two sources: write-after-read (anti) dependencies and I/O operations.\footnote{Besides WAR dependencies and I/O, there are some less common causes of non-idempotency, such as pointer-based stack operations, as noted in prior work by Van Der Woude et al. \cite{ratchet}.} Code re-execution after a WAR dependence creates direct data-flow that did not exist in the original program, and I/O creates effects that cannot be undone. Bugs off of WAR dependencies have been extensively studied in prior work, and several runtime systems exist to fix them \cite{ratchet} \cite{alpaca} \cite{dino}. While there could be other bugs stemming from the use of irrevocable I/O operations, this paper specifically explores memory inconsistencies stemming from branches that are control dependent on non-idempotent input.
+
+\paragraphb{Questions 4 and 5: When can an I/O dependent branch cause a bug?} Not all I/O dependent branches necessarily lead to buggy behavior. To make memory be in an inconsistent state, non-volatile variables must be written to on at least one side of the branch, as they will still be visible to the program on reboot. Furthermore, on a power fail and re-execution of the non-idempotent region, such a tainted variable has to be the reaching definition for some use, either in expected program execution or along the back-edge introduced by re-executing. We discuss this further in Section [false positives]. If the targets of the I/O dependent branch do write to non-volatile memory, however, and there is some use of these tainted variables, this can cause bugs that have not been addressed by prior work.
+%		\item{Sometimes buggy behavior might only be exposed by re-orderings of instructions during runtime. In such cases where the programmer %correctly blocked the tainted variable from having any uses or wrote the exact same non-volatile write set on both sides of the I/O branch, %compiler optimizations might order the initializations on the wrong side of the reset point [This would depend on the runtime system] or change %the order of the non-volatile writes such that it is possible to write divergent sets on a power fail. [Note: this needs to be written better.]} 
+
+	
+
