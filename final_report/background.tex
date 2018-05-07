@@ -1,0 +1,15 @@
+\section{Background}
+
+...
+
+\subsection{A discussion of non-idempotent behavior in intermittent programs}
+\begin{itemize}
+\item{The program does not have non-idempotent behavior and thus does not have a (non-idempotent) bug.}
+\item{ The program has non-idempotent behavior. This behavior generally takes two forms: write-after-read dependencies and I/O operations, though there are some less common uses, such as pointer-based stack operations [cite Ratchet].  Bugs off of WAR dependencies have been extensively studied in prior work, and several runtime systems exist to fix them [cite Previous Work]. While there could be other bugs stemming from the use of irrevocable I/O operations, this paper specifically explores memory inconsistencies stemming from branches off of non-idempotent input [Discussed earlier in introduction, presumably].} 
+\begin{itemize}
+		\item{Not all I/O branches potentially lead to buggy behavior -- to make memory be in an inconsistent state, non-volatile variables must be written to on at least one side of the branch.}
+		\item{Furthermore, on a power fail and re-execution of the non-idempotent region, such a tainted variable has to be the reaching definition for some use, either in expected program execution or along the back-edge introduced by re-executing. A tainted variable can be sanitized by deterministically writing to it from the reset point to the branch, or after the branch before another use [cite figure].} 
+		\item{Sometimes buggy behavior might only be exposed by re-orderings of instructions during runtime. In such cases where the programmer correctly blocked the tainted variable from having any uses or wrote the exact same non-volatile write set on both sides of the I/O branch, compiler optimizations might order the initializations on the wrong side of the reset point [This would depend on the runtime system] or change the order of the non-volatile writes such that it is possible to write divergent sets on a power fail. [Note: this needs to be written better.]} 
+\end{itemize}
+\end{itemize}		
+In [Figure n], we present a flow chart of the taxonomy of non-idempotent behavior and consequences described above. 

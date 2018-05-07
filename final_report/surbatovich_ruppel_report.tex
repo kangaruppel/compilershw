@@ -1,0 +1,54 @@
+\documentclass[10pt,twocolumn]{article}
+
+\usepackage{times}
+\usepackage{fullpage}
+\usepackage{verbatim}
+\usepackage{xcolor}
+\usepackage[T1]{fontenc}
+\usepackage{epsfig,endnotes,footnote}
+\usepackage{graphicx,subfigure,array,multirow}
+\usepackage{times,amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{xspace}
+\usepackage{relsize}
+\usepackage{hyphenat}
+
+\setlength{\floatsep}{4pt} 
+\setlength{\intextsep}{4pt}
+\setlength{\textfloatsep}{4pt}
+
+\usepackage{tabularx}
+
+\graphicspath{{graphics/}}
+
+\newcommand{\paragraphb}[1]{\vspace{0.05in}\noindent{\bf #1}\xspace}
+
+
+
+\begin{document}
+
+\title{\bf I/O Branch Bugs on Intermittent Systems}
+\author{
+Milijana Surbatovich
+\and
+Emily Ruppel
+}
+\date{}
+\maketitle
+\thispagestyle{empty}
+
+\input{abstract}
+\input{intro}
+\input{background}
+\input{system}
+\input{eval}
+\input{implications}
+\input{lessons_learned}
+\input{conclusion}
+
+
+\bibliographystyle{abbrv} 
+\bibliography{references}
+
+\end{document}
