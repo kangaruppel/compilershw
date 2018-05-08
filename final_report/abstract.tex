@@ -1,0 +1,25 @@
+
+\begin{abstract}
+Batteryless energy harvesting devices are computing platforms that operate in
+environments where batteries are not viable for energy storage.
+Energy-harvesting devices operate intermittently, only as energy is available.
+%
+Prior work developed strategies for continuing long-running computations across
+reboot cycles on energy harvesting devices. The strategies use a combination of
+checkpointing volatile state and versioning non-volatile state to make
+application code arbitrarily re-executable. However, prior work provides weak
+guarantees for \emph{non-idempotent} operations such as reading from a sensor.
+%
+In the presence of control flow that is dependent on
+non-idempotent operations, previous runtime systems allow updates from
+uncommitted paths through the code to persist.
+%
+In this paper, we present a compiler pass that statically detects potentially
+inconsistent writes to memory caused by non-idempotent operations and warns the
+programmer.
+%
+We use the pass to analyze suites of embedded device code and found bugs caused
+by inconsistent writes.
+
+
+\end{abstract}
