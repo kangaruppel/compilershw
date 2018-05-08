@@ -61,4 +61,9 @@ simple bugs that would be masked under continous execution are likely and become
 critical under intermitent execution.
 
 Finally, we analyzed benchmarks written using different task-based intermittent
-programming langauges~\cite{alpaca, chain} and the libraries they called.
+programming langauges~\cite{alpaca, chain} and the libraries they called. The
+issue with many of the bug reports for task-based code is that the bug can only
+manifest if the I/O function call is contained within the same task. Tasks
+always re-execute with the same initial values on each attempt, so it is not
+possible for the value of tainted variables to change on re-execution unless the
+call is part of the re-executed code.
