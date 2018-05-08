@@ -1,1 +1,55 @@
 \section{Evaluation}
+%-MiBench
+%-Tirtos
+%-benchmarks from prior (and upcoming) intermittent systems paper evals
+%
+%-Process
+% -remove device specific pragmas from code
+% -specify IO functions
+% -compile with clang
+% -run tool
+% -Analyze output warnings, check if the bug would actually manifest
+%
+To evaluate the pass and demonstrate the presence of I/O dependent branch
+bugs in real code, we ran the pass on several suites of code for embedded
+devices. The three suites were MiBench~\cite{mibench}, TI-RTOS driver
+code~\cite{tirtos}, and modified benchmarks written by the ABSTRACT research
+group for testing intermittent runtime systems on energy harvesting
+devices~\cite{alpaca,chain,dino,capybara}.  We found that the presence of the
+bug varies depending on how the code processes I/O and whether the developers
+were aware of the intermittent execution model.
+
+To run the pass, we had to first ensure that the source code could be compiled
+with clang so that LLVM-IR could be emitted. To run MiBench and TI-RTOS code we
+had to change [insert stuff changed for MiBench and tirtos here]. The ABSTRACT
+benchmarks were all written to target MSP430 microcontrollers using TI's
+proprietary MSPGCC compiler, so MSP430 specific macros had to be removed from
+the benchmark code and the linked runtime.
+%
+Next, we registered the I/O functions in each of the benchmarks so that the pass
+could track their updates. At that point the benchmarks are compiled with
+clang so that debug information is included in the LLVM-IR that is produced and
+handed to the pass described in Section~\ref{sec:system}. Then we analyzed any
+bug reports produced by the pass to determine the severity of the problem.
+
+Initially, the evaluation focused on MiBench~\cite{mibench} which is a benchmark
+suite for embedded systems. The problem, however, is the benchmarks tended to
+simulate sensor input in a way that does not mimic energy harvesting devices. In
+MiBench, applications tended to operate on a stored buffer of data rather than
+periodically processing new samples produced by a sensor. Since the MiBench
+applications' interaction with sensors is neither frequent nor critical to
+control flow, the MiBench codes produced few I/O dependent branch bugs.
+
+The next set of benchmarks came from TI-RTOS driver code~\cite{tirtos}. These
+benchmarks contain drivers for sensors that can be called through the TI-RTOS
+API. The drivers are written assuming the device is continuously powered or uses
+managed sleep cycles to reduce power consumption.
+%Are the ti-rtos drivers NV-RAM agnostic?
+The benchmarks in TI-RTOS contained several critical I/O dependent branch bugs.
+This outcome is not unexpected- the TI-RTOS suite is intended for use by
+real-time, event driver applications that react to sensor input, so control flow
+in the drivers is often determined by sensor input. Further, the code deals with
+low-level manipulations of sensors without knowledge of power failures, so
+simple bugs that would be masked under continous execution are likely and become
+critical under intermitent execution.
+
