@@ -32,3 +32,24 @@ clang so that debug information is included in the LLVM-IR that is produced and
 handed to the pass described in Section~\ref{sec:system}. Then we analyzed any
 bug reports produced by the pass to determine the severity of the problem.
 
+Initially, the evaluation focused on MiBench~\cite{mibench} which is a benchmark
+suite for embedded systems. The problem, however, is the benchmarks tended to
+simulate sensor input in a way that does not mimic energy harvesting devices. In
+MiBench, applications tended to operate on a stored buffer of data rather than
+periodically processing new samples produced by a sensor. Since the MiBench
+applications' interaction with sensors is neither frequent nor critical to
+control flow, the MiBench codes produced few I/O dependent branch bugs.
+
+The next set of benchmarks came from TI-RTOS driver code~\cite{tirtos}. These
+benchmarks contain drivers for sensors that can be called through the TI-RTOS
+API. The drivers are written assuming the device is continuously powered or uses
+managed sleep cycles to reduce power consumption.
+%Are the ti-rtos drivers NV-RAM agnostic?
+The benchmarks in TI-RTOS contained several critical I/O dependent branch bugs.
+This outcome is not unexpected- the TI-RTOS suite is intended for use by
+real-time, event driver applications that react to sensor input, so control flow
+in the drivers is often determined by sensor input. Further, the code deals with
+low-level manipulations of sensors without knowledge of power failures, so
+simple bugs that would be masked under continous execution are likely and become
+critical under intermitent execution.
+
