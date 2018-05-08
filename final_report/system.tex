@@ -1,6 +1,6 @@
 \section{System Overview}
 
-The overarching algorithm is fixed-point - iterating through the functions, summarizing new information about the I/O flow, and iterating through functions again, until there is no new information to be gleaned. Psuedocode is presented in Figure \ref{alg:fixedp}
+The overarching algorithm is fixed-point - iterating through the functions, summarizing new information about the I/O flow, and iterating through functions again, until there is no new information to be gleaned. Psuedo-code is presented in Algorithm \ref{alg:fixedp}
 
 \begin{algorithm}
 \begin{algorithmic}
@@ -59,16 +59,16 @@ The overarching algorithm is fixed-point - iterating through the functions, summ
 \EndFor
 \EndFunction
 \end{algorithmic}
-\caption{Iterative, fixed point taint tracking. While the algorithm is not truly interproceedural, it tracks the data and control dependencies with the local function and summarizes how the taint flows out of the function. The summary information is used to add functions to the working list, until the entire I/O tainted flow has been explored}
+\caption{Iterative, fixed point taint tracking. While the algorithm is not truly interproeedural, it tracks the data and control dependencies with the local function and summarizes how the taint flows out of the function. The summary information is used to add functions to the working list, until the entire I/O tainted flow has been explored}
 \label{alg:fixedp}
 \end{algorithm}
 	
-To start with, we don't know where the I/O enters the program, so all the functions are put in the stack, with no I/O parameter--the I/O call/instruction is found internally, based on annotated information in the source code. Once the I/O source is found, we call a function that traverses the local data and control flow chain of the I/O source. In the chain, there are some instructions of interest--namely, branches, which can lead to the bug of mismatched nv write sets, and instructions that result in I/O tainted values flowing out of the current function that we're examining. 
+When the pass starts iterating, it doesn't know where the I/O enters the program, so all the functions are put in the working list, with a NULL I/O parameter--the I/O call is found internally, based on annotated information in the source code. Once the I/O source is found, the pass calls a function that traverses the data flow chain of the I/O instruction within the local function. In the chain, there are some instructions of interest: branches, which can lead to the bug of mismatched non-volatile write sets, and instructions that result in I/O tainted values flowing out of the current function that we're examining (an interprocedural flow \bf{source} ). 
 	
-Traversing the data flow primarily uses LLVM's built-in def use chains. From the definition of the tainted variable, we follow the uses in a depth first search, adding on new definitions to the stack.  
-From the traversal function call, we return the list of interesting instructions found. If the instruction was a branch, we examine the non-volatile (i.e.,globals) write sets to see if there is the possibility for the bug. Additionally, the non-volatile variables (used locally and in nested function calls) and local volatile variables written to are control-dependent on the I/O tainted variable, so we add the globals to the summary information and continue the local traversal with the newly tainted control dependent variables.
-	
-For the other types of instructions returned from the traversal, we use the information to add to our list of functions to still be examined to reach fixed point. 
+Traversing the data flow primarily uses LLVM's built-in def-use chains. From the definition of the tainted variable, we follow the uses in a depth first search, adding on any new store instructions to the visit stack. 
+From the traversal function call, we return the list of interesting instructions found to $findTainted$. If the instruction was a branch, the pass calls the $check$ function to examine the non-volatile write sets of the branch target blocks to see if there is the possibility for the bug. Additionally, any variables written to on the tainted branch are control-dependent on the I/O variable, so the pass adds any globals to the interprocedural source list and continues the local traversal with the newly tainted control dependent variables.
+
+Once the pass finishes traversing the tainted flow within the local function, it returns back to $searchFunction$ with the list of tainted sources of interprocedural flow.
 	
 Values can leave the local function by: 
 \begin{itemize}
