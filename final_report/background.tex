@@ -6,19 +6,47 @@ memory that are involved in write-after-read (WAR) dependences. However,
 ensuring the consistency of memory involved in WAR dependences still leaves the
 program open to bugs caused by non-idempotent behavior.
 
-\subsection{Intermittent System Support}
-Before discussing the range of non-idempotent operations that can occur
+\subsection{Existing Intermittent System Support}
+Before discussing the range of non-idempotent operations that can occur on an
+intermittent device, we will present an example of why prior work on
+intermittent runtime systems fails to address the problem of non-idempotent
+control flow. Figure~\ref{fig:dino} shows a section of code instrumented with
+{\tt dino\_task} boundaries~\cite{dino}. DINO uses task boundaries to form
+(supposedly) idempotent tasks. At each boundary, the volatile state of the program is
+checkpointed in non-volatile memory, and each non-volatile variable that is
+involved in a WAR dependence before the next task boundary is written to the
+{\tt dino\_nv\_buffer}. The buffer of non-volatile variables ensures that a
+power failure does not cause the value of the WAR variables to become
+inconsistent.
+
+In the example, the {\tt dino\_nv\_buffer} is empty because no variable has a
+WAR dependence.  As a result, updates to {\tt steady} and {\tt blink} are
+written directly to persistent memory. On the first execution attempt, the {\tt
+get\_temp} call returns a value that is less than the threshold, so {\tt steady}
+is set before a power failure occurs. On reboot, the sensor returns a value that
+is greater than the threshold, so {\tt blink} is also set. After falling out of
+the if-else statement, the assertion that both variables cannot be set fails and
+the program terminates with an error.
+
 
 \begin{figure}[htb]
 \centering
 \includegraphics[width=1\columnwidth]{dino_io_violation.pdf}
-\caption{Attempt to execute the code shown at left using the DINO runtime.}
+\caption{Attempt to execute the code shown at left using the DINO runtime. The
+state of the DINO buffer and the non-volatile variables, blink and steady are
+shown to the right.}
 \label{fig:dino}
 \end{figure}
 
+Any runtime system that relies strictly on WAR analysis to preserve idempotent
+execution~\cite{dino, alpaca, ratchet} will experience the same failure mode
+because the updates made along uncommitted branches will be allowed to persist.
+
+
 \subsection{A discussion of non-idempotent behavior in intermittent programs}
 
-In Figure \ref{fig:tax}, we present a flow chart of the taxonomy of non-idempotent behaviors and their potentially buggy consequences. 
+In Figure \ref{fig:tax}, we present a flow chart of the taxonomy of
+non-idempotent behaviors and their potentially buggy consequences.
 
 \begin{figure}[ht]
 \centering
