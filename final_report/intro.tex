@@ -21,7 +21,7 @@ checkpoint~\cite{mementos,ratchet}, or task boundary~\cite{chain,alpaca,dino} an
 re-execute the segment of code that was interrupted.
 %
 All of these systems allow intermittently executed programs to make progress and
-prevents persistent state from being corrupted by re-execution, however, their
+prevent persistent state from being corrupted by re-execution, however, their
 guarantees in terms of sensor input are limited. Specifically, if \emph{control
 flow} decisions are made based on non-idempotent operations, such as reading
 input from a sensor, these systems allow updates from multiple branches to
@@ -36,20 +36,25 @@ programmers to diagnose because they require the programmer to reason about how
 partial execution of different branches of control flow will affect the future
 state of the program.
 %
-Instead, our project uses a compiler pass to identify control flow based on sensor input
-and detect writes to non-volatile data that can leave memory in an inconsistent
-state if repeated reads from the sensor produce different values.
-%
-% Is the following blurb still true?
 
-In particular, our project focuses on refining the pass to
-reduce the number of false positives the compiler generates by running the pass
-on benchmarks used in intermittently powered devices. Initially, we intended to
-use the MiBench suite of benchmarks for embedded devices, but we found that
-MiBench applications primarily benchmark the computation performed by an
-embedded device, not the device's handling of I/O. In the benchmarks we
-investigated, sensor data are often represented as buffer of data that is
-loaded once at the beginning of the application as opposed to pulled in
-repeatedly as in a typical sensing application.
+Instead, our project uses a compiler pass to statically identify writes to
+non-volatile memory that may leave memory in an inconsistent state if repeated
+reads from the sensor produce different values. The pass first detects data
+dependences between variables in the program and I/O operations. Variables with
+data dependences on I/O are considered tainted. Then the pass detects control
+flow that is dependent on tainted values. The pass searches for writes to
+non-volatile memory in each of the basic blocks along the different control flow
+paths. After filtering the writes to reduce the number of false positives, the
+pass reports each of the remaining writes as potential bugs.
+
+%In particular, our project focuses on refining the pass to
+%reduce the number of false positives the compiler generates by running the pass
+%on benchmarks used in intermittently powered devices. Initially, we intended to
+%use the MiBench suite of benchmarks for embedded devices, but we found that
+%MiBench applications primarily benchmark the computation performed by an
+%embedded device, not the device's handling of I/O. In the benchmarks we
+%investigated, sensor data are often represented as buffer of data that is
+%loaded once at the beginning of the application as opposed to pulled in
+%repeatedly as in a typical sensing application.
 
 
