@@ -2,4 +2,5 @@
 *.bc
 *.ll
 *.so
-
+final_report/*.bbl
+final_report/*.log

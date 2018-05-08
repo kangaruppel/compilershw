@@ -1,6 +1,20 @@
 \section{Background}
+Prior work in intermittent systems seeks to instrument the minimum number of
+writes to non-volatile memory to reduce the overhead of the intermittent
+runtime. In doing so, the runtimes only instrument updates to non-volatile
+memory that are involved in write-after-read (WAR) dependences. However,
+ensuring the consistency of memory involved in WAR dependences still leaves the
+program open to bugs caused by non-idempotent behavior.
 
-...
+\subsection{Intermittent System Support}
+Before discussing the range of non-idempotent operations that can occur
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1\columnwidth]{dino_io_violation.pdf}
+\caption{Attempt to execute the code shown at left using the DINO runtime.}
+\label{fig:dino}
+\end{figure}
 
 \subsection{A discussion of non-idempotent behavior in intermittent programs}
 
