@@ -20,11 +20,18 @@ bug varies depending on how the code processes I/O and whether the developers
 were aware of the intermittent execution model.
 
 To run the pass, we had to first ensure that the source code could be compiled
-with clang so that LLVM-IR could be emitted. To run MiBench and TI-RTOS code we
-had to change [insert stuff changed for MiBench and tirtos here]. The ABSTRACT
-benchmarks were all written to target MSP430 microcontrollers using TI's
-proprietary MSPGCC compiler, so MSP430 specific macros had to be removed from
-the benchmark code and the linked runtime.
+with clang so that LLVM-IR could be emitted. We ran MiBench with minimal changes
+to the code.
+%
+To run TI-RTOS drivers and applications, certain calls to the kernel had to be
+removed. Further, TI-RTOS tasks and events were abstracted as function calls
+to statically analyze the program behavior. Tasks and events would normally be
+scheduled by the lightweight OS framework that TI-RTOS provides, so to compile
+single drivers the representation of tasks and events has to be changed.
+%
+The ABSTRACT benchmarks were all written to target MSP430 microcontrollers using
+TI's proprietary MSPGCC compiler, so MSP430 specific macros had to be removed
+from the benchmark code and the linked runtime.
 %
 Next, we registered the I/O functions in each of the benchmarks so that the pass
 could track their updates. At that point the benchmarks are compiled with
@@ -53,3 +60,5 @@ low-level manipulations of sensors without knowledge of power failures, so
 simple bugs that would be masked under continous execution are likely and become
 critical under intermitent execution.
 
+Finally, we analyzed benchmarks written using different task-based intermittent
+programming langauges~\cite{alpaca, chain} and the libraries they called.
