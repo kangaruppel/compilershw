@@ -65,7 +65,7 @@ behavior, it will not have any of the bugs we are studying.
 Non-idempotent behavior generally has two sources: write-after-read (anti)
 dependencies and I/O operations.\footnote{Besides WAR dependencies and I/O,
 there are some less common causes of non-idempotency, such as pointer-based
-stack operations, as noted in prior work by Van Der Woude et al.
+stack operations, as noted in prior work by Van Der Woude and Hicks
 \cite{ratchet}.} Code re-execution after a WAR dependence creates direct
 data-flow that did not exist in the original program, and I/O creates effects
 that cannot be undone. Bugs off of WAR dependencies have been extensively
