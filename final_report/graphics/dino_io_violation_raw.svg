@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="297mm"
+   height="210mm"
+   viewBox="0 0 297 210"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="dino_io_violation.svg"
+   inkscape:version="0.92.1 r15371">
+  <defs
+     id="defs2">
+    <marker
+       inkscape:stockid="TriangleOutL"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="TriangleOutL"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path5934"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         transform="scale(0.8)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lend"
+       style="overflow:visible;"
+       inkscape:isstock="true">
+      <path
+         id="path5795"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         transform="scale(0.8) rotate(180) translate(12.5,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="591.92725"
+     inkscape:cy="644.46554"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="3840"
+     inkscape:window-height="2035"
+     inkscape:window-x="5459"
+     inkscape:window-y="-13"
+     inkscape:window-maximized="1">
+    <sodipodi:guide
+       position="22.206101,248.70834"
+       orientation="1,0"
+       id="guide4523"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="97.801337,258.9137"
+       orientation="1,0"
+       id="guide4649"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="125.96056,252.4881"
+       orientation="0,1"
+       id="guide4672"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="165.17558,244.26712"
+       orientation="1,0"
+       id="guide4674"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="106.37327,186.01959"
+       orientation="0,1"
+       id="guide5645"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="14.566189,233.59357"
+       orientation="1,0"
+       id="guide5754"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="126.81939,265.66592"
+       orientation="0,1"
+       id="guide5786"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="94.346144,68.420999"
+       orientation="1,0"
+       id="guide5788"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="152.34363,142.9892"
+       orientation="0,1"
+       id="guide6550"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="107.70962,118.66767"
+       orientation="1,0"
+       id="guide6552"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-87)">
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4485"
+       width="72.953453"
+       height="57.462948"
+       x="8.2326698"
+       y="111.7154"
+       ry="12.695303"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4487"
+       style="font-style:normal;font-weight:normal;font-size:13.33333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="scale(0.26458333)"><flowRegion
+         id="flowRegion4489"><rect
+           id="rect4491"
+           width="273.24628"
+           height="186.37314"
+           x="75.00383"
+           y="150.75293" /></flowRegion><flowPara
+         id="flowPara4493"></flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4495"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.66666603px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.26458333,0,0,0.26458333,-3.0768323,78.459819)"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000"><flowRegion
+         id="flowRegion4497"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"><rect
+           id="rect4499"
+           width="268.1955"
+           height="186.37314"
+           x="71.468292"
+           y="145.1971"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+         id="flowPara4507">dino_task()</flowPara><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+         id="flowPara4509" /><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+         id="flowPara4505" /></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4513"
+       style="font-style:normal;font-weight:normal;font-size:21.33333397px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="scale(0.26458333)"><flowRegion
+         id="flowRegion4515"><rect
+           id="rect4517"
+           width="159.6041"
+           height="23.738585"
+           x="73.488594"
+           y="180.04736" /></flowRegion><flowPara
+         id="flowPara4519"></flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4525"
+       style="font-style:normal;font-weight:normal;font-size:21.33333397px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="scale(0.26458333)"><flowRegion
+         id="flowRegion4527"><rect
+           id="rect4529"
+           width="160"
+           height="140"
+           x="83.928574"
+           y="174.66254" /></flowRegion><flowPara
+         id="flowPara4531"></flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4549"
+       style="font-style:normal;font-weight:normal;font-size:13.33333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="scale(0.26458333)"><flowRegion
+         id="flowRegion4551"><rect
+           id="rect4553"
+           width="2.8571429"
+           height="16.428572"
+           x="387.5"
+           y="95.376823" /></flowRegion><flowPara
+         id="flowPara4555"></flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4565"
+       style="font-style:normal;font-weight:normal;font-size:18.66666603px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.26458333,0,0,0.26458333,-96.342459,107.09152)"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000"><flowRegion
+         id="flowRegion4567"><rect
+           id="rect4569"
+           width="327.14285"
+           height="265.71429"
+           x="421.78571"
+           y="61.09111" /></flowRegion><flowPara
+         id="flowPara4571">io_val = get_temp()</flowPara><flowPara
+         id="flowPara4573">if (io_val &lt; threshold):</flowPara><flowPara
+         id="flowPara4575">  steady = 1</flowPara><flowPara
+         id="flowPara4577">else:</flowPara><flowPara
+         id="flowPara4579">  blink = 1</flowPara><flowPara
+         id="flowPara4581">assert(!(blink &amp; steady))</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4495-8"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.66666603px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.26458333,0,0,0.26458333,-2.981894,122.06091)"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000"><flowRegion
+         id="flowRegion4497-7"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"><rect
+           id="rect4499-3"
+           width="268.1955"
+           height="186.37314"
+           x="71.468292"
+           y="145.1971"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+         id="flowPara4507-1">dino_task()</flowPara><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+         id="flowPara4509-4" /><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+         id="flowPara4505-0" /></flowRoot>    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="101.39211"
+       y="37.708332"
+       id="text4620"><tspan
+         sodipodi:role="line"
+         id="tspan4618"
+         x="101.39211"
+         y="40.92683"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';stroke-width:0.26458332" /></text>
+    <path
+       style="opacity:1;fill:#224433;fill-opacity:0;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 107.70962,140.77153 v -21.17997 c 0,-4.64458 5.6621,-8.38374 12.6953,-8.38374 h 47.56285 c 7.0332,0 12.6953,3.73916 12.6953,8.38374 v 21.17997"
+       id="path4758"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4495-0"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.66666603px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.26458333,0,0,0.26458333,95.59831,77.684967)"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000"><flowRegion
+         id="flowRegion4497-8"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"><rect
+           id="rect4499-8"
+           width="268.1955"
+           height="186.37314"
+           x="71.468292"
+           y="145.1971"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+         id="flowPara4507-4">dino_task()</flowPara><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+         id="flowPara4509-1" /><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+         id="flowPara4505-1" /></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4565-4"
+       style="font-style:normal;font-weight:normal;font-size:18.66666603px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.26458333,0,0,0.26458333,3.1344893,106.58394)"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000"><flowRegion
+         id="flowRegion4567-4"><rect
+           id="rect4569-3"
+           width="327.14285"
+           height="265.71429"
+           x="421.78571"
+           y="61.09111" /></flowRegion><flowPara
+         id="flowPara4571-2">io_val = get_temp()</flowPara><flowPara
+         id="flowPara4573-3"
+         style="fill:#008855;fill-opacity:1">if (io_val &lt; threshold):</flowPara><flowPara
+         id="flowPara4575-7"
+         style="fill:#008855;fill-opacity:1">  steady = 1</flowPara><flowPara
+         id="flowPara4581-0" /></flowRoot>    <path
+       style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 107.70962,140.77153 10.01839,4.17596 12.85119,-3.59077 15.11905,7.74851 18.33185,-7.55953 10.9613,3.40179 5.67167,-4.17596"
+       id="path4767"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000" />
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4613-3"
+       width="66.996277"
+       height="7.9374995"
+       x="191.63515"
+       y="111.3813"
+       ry="3.9687498"
+       rx="0"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="193.90302"
+       y="116.57848"
+       id="text4624-3"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000"><tspan
+         sodipodi:role="line"
+         id="tspan4622-8"
+         x="193.90302"
+         y="116.57848"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';stroke-width:0.26458332">dino_nv_buffer = {}</tspan></text>
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4613-8-80"
+       width="30.049103"
+       height="7.9374995"
+       x="191.25717"
+       y="132.52901"
+       ry="3.9687498"
+       rx="0"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="192.95807"
+       y="138.0096"
+       id="text4624-6-5"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000"><tspan
+         sodipodi:role="line"
+         id="tspan4622-9-2"
+         x="192.95807"
+         y="138.0096"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';stroke-width:0.26458332">blink = 0</tspan></text>
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4613-8-8-5"
+       width="33.07291"
+       height="7.9374995"
+       x="225.55852"
+       y="132.52901"
+       ry="3.9687498"
+       rx="0"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="227.16492"
+       y="138.0096"
+       id="text4624-6-6-6"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000"><tspan
+         sodipodi:role="line"
+         id="tspan4622-9-8-6"
+         x="227.16492"
+         y="138.0096"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#008855;fill-opacity:1;stroke-width:0.26458332">steady = 1</tspan></text>
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4485-6"
+       width="72.953453"
+       height="57.462948"
+       x="108.02203"
+       y="154.27808"
+       ry="12.695303"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4495-0-6"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.66666603px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.26458333,0,0,0.26458333,96.36581,119.43377)"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000"><flowRegion
+         id="flowRegion4497-8-3"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"><rect
+           id="rect4499-8-4"
+           width="268.1955"
+           height="186.37314"
+           x="71.468292"
+           y="145.1971"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+         id="flowPara4507-4-1">dino_task()</flowPara><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+         id="flowPara4509-1-1" /><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+         id="flowPara4505-1-5" /></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4565-4-6"
+       style="font-style:normal;font-weight:normal;font-size:18.66666603px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.26458333,0,0,0.26458333,3.9019936,148.33274)"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000"><flowRegion
+         id="flowRegion4567-4-0"><rect
+           id="rect4569-3-6"
+           width="327.14285"
+           height="265.71429"
+           x="421.78571"
+           y="61.09111" /></flowRegion><flowPara
+         id="flowPara4571-2-2">io_val = get_temp()</flowPara><flowPara
+         id="flowPara4573-3-4">if (io_val &lt; threshold):</flowPara><flowPara
+         id="flowPara4575-7-5"
+         style="fill:#000000;fill-opacity:1">  steady = 1</flowPara><flowPara
+         id="flowPara4581-0-8" /></flowRoot>    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4613-3-2"
+       width="66.996277"
+       height="7.9374995"
+       x="191.25719"
+       y="154.0108"
+       ry="3.9687498"
+       rx="0"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="193.52504"
+       y="159.20799"
+       id="text4624-3-7"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000"><tspan
+         sodipodi:role="line"
+         id="tspan4622-8-1"
+         x="193.52504"
+         y="159.20799"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';stroke-width:0.26458332">dino_nv_buffer = {}</tspan></text>
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4613-8-80-5"
+       width="30.049103"
+       height="7.9374995"
+       x="190.8792"
+       y="187.32912"
+       ry="3.9687498"
+       rx="0"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="192.58009"
+       y="192.80978"
+       id="text4624-6-5-0"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000"><tspan
+         sodipodi:role="line"
+         id="tspan4622-9-2-5"
+         x="192.58009"
+         y="192.80978"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#008855;fill-opacity:1;stroke-width:0.26458332">blink = 1</tspan></text>
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4613-8-8-5-2"
+       width="33.07291"
+       height="7.9374995"
+       x="225.18054"
+       y="187.32912"
+       ry="3.9687498"
+       rx="0"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="226.78694"
+       y="192.80978"
+       id="text4624-6-6-6-7"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000"><tspan
+         sodipodi:role="line"
+         id="tspan4622-9-8-6-4"
+         x="226.78694"
+         y="192.80978"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#000000;fill-opacity:1;stroke-width:0.26458332">steady = 1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="115.37193"
+       y="186.61769"
+       id="text5733"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000"><tspan
+         sodipodi:role="line"
+         id="tspan5731"
+         x="115.37193"
+         y="186.61769"
+         style="fill:#008855;fill-opacity:1;stroke-width:0.26458332">else:</tspan><tspan
+         sodipodi:role="line"
+         x="115.37193"
+         y="192.79131"
+         style="fill:#008855;fill-opacity:1;stroke-width:0.26458332"
+         id="tspan5735">  blink = 1</tspan><tspan
+         sodipodi:role="line"
+         x="115.37193"
+         y="198.96492"
+         style="fill:#ca0020;fill-opacity:1;stroke-width:0.26458332"
+         id="tspan5737">assert(!(blink &amp; steady))</tspan></text>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4495-0-6-6"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.66666603px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.26458333,0,0,0.26458333,96.52404,162.84786)"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000"><flowRegion
+         id="flowRegion4497-8-3-8"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"><rect
+           id="rect4499-8-4-8"
+           width="268.1955"
+           height="186.37314"
+           x="71.468292"
+           y="145.1971"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+         id="flowPara4507-4-1-7">dino_task()</flowPara><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+         id="flowPara4509-1-1-9" /><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+         id="flowPara4505-1-5-2" /></flowRoot>    <path
+       style="fill:none;stroke:#000000;stroke-width:1.36500001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:5.69999981;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleOutL)"
+       d="M 94.346144,105.63502 V 224.83723"
+       id="path5790"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot6534"
+       style="font-style:normal;font-weight:normal;font-size:21.33333397px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0,-0.26458333,0.26458333,0,-22.709092,214.44106)"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000"><flowRegion
+         id="flowRegion6536"><rect
+           id="rect6538"
+           width="57.578705"
+           height="26.263977"
+           x="142.4315"
+           y="411.86313" /></flowRegion><flowPara
+         id="flowPara6540">Time</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot6542"
+       style="font-style:normal;font-weight:normal;font-size:18.66666603px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.26458333,0,0,0.26458333,-36.959597,90.741773)"
+       inkscape:export-xdpi="3000"
+       inkscape:export-ydpi="3000"><flowRegion
+         id="flowRegion6544"><rect
+           id="rect6546"
+           width="241.42645"
+           height="31.31473"
+           x="736.40118"
+           y="204.78188" /></flowRegion><flowPara
+         id="flowPara6548"
+         style="fill:#ca0020;fill-opacity:1">power failure</flowPara></flowRoot>  </g>
+</svg>
