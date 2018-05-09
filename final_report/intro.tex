@@ -47,6 +47,17 @@ non-volatile memory in each of the basic blocks along the different control flow
 paths. After filtering the writes to reduce the number of false positives, the
 pass reports each of the remaining writes as potential bugs.
 
+This project makes the following contribution:
+\begin{itemize}[topsep=0pt,leftmargin=.1in]
+\setlength\itemsep{-4pt}
+  \item{The description of I/O dependent branch bugs that arise in intermittent
+systems that use non-idempotent operations for data.}
+  \item{A tool for identifying potential I/O dependent branch bugs implemented
+as an LLVM compiler pass.}
+  \item{An analysis of three embedded systems code suites using the tool to identify
+and characterize I/O dependent branch bugs in real code.}
+\end{itemize}
+
 %In particular, our project focuses on refining the pass to
 %reduce the number of false positives the compiler generates by running the pass
 %on benchmarks used in intermittently powered devices. Initially, we intended to

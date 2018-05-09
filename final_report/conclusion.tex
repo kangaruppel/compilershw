@@ -1,1 +1,19 @@
 \section{Conclusion}
+In this project, we describe I/O dependent branch bugs that arise when control
+flow decisions are dependent on variables tainted by non-idempotent reads in an
+intermittent execution.
+%
+We describe how prior system support for intermittent execution allows
+memory to remain in an inconsistent state by persisting writes along multiple
+branches. Then we present an LLVM pass that identifies potential I/O dependent
+branch bugs and warns the programmer. We further describe a filter for reducing the
+number of false positives produced by the pass.
+%
+We run the tool on three different suites of code for embedded systems
+to identify how the bug manifests in the real code. Finally, we present three
+case studies demonstrating how the tool identified bugs in real code from the
+TI-RTOS code base.
+
+\section{Grade Distribution}
+Milijana- 70\%, Emily- 30\%
+

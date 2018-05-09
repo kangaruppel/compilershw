@@ -1,5 +1,14 @@
 \section{Results}
-This project was mostly exploratory; we envision a previously unaddressed type of intermittent bug that can theoretically exist, develop a static analysis tool to detect the relevant code pattern, and then see if compelling examples actually exist in the wild. They do, particularly in sensor drivers and low-level client applications. For our results, we present three case studies: one taken from the TI-RTOS magnetometer driver, and two taken from example software applications bundled with TI-RTOS. For each case, we give the simplified source code, annotated with a restart and power failure point that triggers the bug, the program execution trace, and a discussion of the possible consequences of each bug.
+This project was mostly exploratory; we describe a previously unaddressed type
+of intermittent bug that can theoretically exist, develop a static analysis tool
+to detect the relevant code pattern, and then see if compelling examples
+actually exist in the wild. We found that they do, particularly in sensor drivers and
+low-level client applications. For our results, we present three case studies:
+one taken from the TI-RTOS magnetometer driver, and two taken from example
+software applications bundled with TI-RTOS. For each case, we give the
+simplified source code, annotated with a restart and power failure point that
+triggers the bug, the program execution trace, and a discussion of the possible
+consequences of each bug.
 
 \subsection{The Magnetometer Driver}
 
